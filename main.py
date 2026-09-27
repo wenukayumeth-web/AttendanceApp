@@ -1,4 +1,4 @@
-import mysql.connector
+import pymysql
 from mysql.connector import Error
 
 from kivy.animation import Animation
