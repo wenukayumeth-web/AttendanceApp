@@ -7,25 +7,24 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        path: master
 
-    - name: Build with Buildozer Action
-      uses: Kivy-Launcher/buildozer-action@v1.2
+    - name: Build with Buildozer
+      uses: ArtemSBulgakov/buildozer-action@v1
+      id: buildozer
       with:
-        command: buildozer -v android debug
-        submodule_update: false
+        repository_root: master
+        command: buildozer android debug
+        buildozer_version: stable
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: AttendanceApp-APK
-        path: bin/*.apk
+        path: ${{ steps.buildozer.outputs.filename }}
