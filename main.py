@@ -1,3 +1,4 @@
+import pymysql
 import mysql.connector
 from mysql.connector import Error
 
